@@ -14,22 +14,22 @@ class MainActivity : AppCompatActivity() {
         val rollButton: Button = findViewById(R.id.roll_button)
         rollButton.setOnClickListener { rollDice() }
         val countUpButton: Button = findViewById(R.id.count_up_button)
-        countUpButton.setOnClickListener{countUp()}
+        countUpButton.setOnClickListener { countUp() }
     }
 
     private fun countUp() {
         val resultText: TextView = findViewById(R.id.result_text)
         val inicialText = getString(R.string.initial_result_text)
 
-        val textValue = resultText.text.toString()
+        if (resultText.text.toString() == inicialText) {
+            resultText.text = "1"
+        } else {
+            var diceValue = resultText.text.toString().toInt()
 
-        if (textValue.equals(inicialText)){
-            resultText.text = 1.toString()
-        }else{
-            var diceValue = textValue.toInt()
-            if (diceValue < 6){
-                resultText.text = (diceValue + 1).toString()
-            }else{
+            if (diceValue < 6) {
+                diceValue++
+                resultText.text = diceValue.toString()
+            } else {
                 Toast.makeText(this, "Dice reached max value...", Toast.LENGTH_SHORT).show()
             }
         }
